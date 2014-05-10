@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<!--[if IE 8]>                           <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+  <!--<![endif]-->
+  <head>
+    <meta name="generator"
+    content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Glimmer WebUI: Search</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/custom.modernizr.js"></script>
+	<script>
+		function formSubmit()
+		{
+			document.getElementById("glimmer").submit();
+		}
+	</script>
+  </head>
+  <body>
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="home.html">Glimmer WebUI</a>
+        </h1>
+      </li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon">
+        <a href="#">
+          <span>Menu</span>
+        </a>
+      </li>
+    </ul>
+    <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li class="inactive">
+          <a href="/bmouler/final/home.html">Home</a>
+        </li>
+        <li class="active">
+          <a href="/bmouler/final/glimmer3.html">Search</a>
+        </li>
+        <li class="inactive">
+          <a href="/bmouler/final/history.html">History</a>
+        </li>
+      </ul>
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="inactive">
+          <a href="http://www.cbcb.umd.edu/software/glimmer/glim302notes.pdf">Release Notes</a>
+        </li>
+        <li class="inactive">
+          <a href="/bmouler/final/references.html">References</a>
+        </li>
+        <li class="has-form">
+          <a class="button" href="http://advanced.jhu.edu/">JHU AAP</a>
+        </li>
+      </ul>
+    </section>
+  </nav>
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Glimmer Search</h2>
+      <p>Leaving optional fields blank will select default values.</p>
+	  <p><a href="#" data-reveal-id="prof_note">Click here for testing instructions.</a></p>
+      <hr />
+    </div>
+  </div>
+  
+  <form action="/bmouler/final/cgi-bin/run_glimmer.cgi" id="glimmer" method="post" enctype="multipart/form-data">
+  <div class="row">
+	<div class="large-12 columns">
+		<fieldset>
+			<legend>INPUT</legend>
+			<div class="large-12 columns">
+				<p>Upload query sequence in FASTA format: 
+				<input type="file" name="query_seq" /></p><br>
+				<p>Upload reference sequence in FASTA format <span style="color:gray">[optional]</span>: 
+				<input type="file" name="reference_seq" /></p>
+			</div>
+		</fieldset>
+	</div>
+  </div>
+  
+   <div class="row">
+	<div class="large-12 columns">
+		<fieldset>
+			<legend>long-orfs Options</legend>
+			
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Allowable start codons</label>
+						<div class="small-11 columns">
+						  <input type="text" name="long_orfs_o1" placeholder="Defaults: atg, gtg, ttg" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Specify allowable start codons as a comma-separated list.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Minimum gene length</label>
+						<div class="small-11 columns">
+						  <input type="text" name="long_orfs_o2" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the minimum gene length to <em>n</em> nucleotides. This does not include the bases in the stop codon.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Maximum overlap length</label>
+						<div class="small-11 columns">
+						  <input type="text" name="long_orfs_o3" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the maximum overlap length to <em>n</em>. Overlaps of this many or fewer bases between genes are not regarded as overlaps.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Score cutoff</label>
+						<div class="small-11 columns">
+						  <input type="text" name="long_orfs_o4" placeholder="Defaults: atg, gtg, ttg" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Only genes with an entropy distance score less than <em>x</em> will be considered. This cutoff is made before any subsequent steps in the algorithm.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Translation table</label>
+						<div class="small-11 columns">
+						  <input type="text" name="long_orfs_o5" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Use Genbank translation table number <em>n</em> to specify stop codons.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Allowable stop codons</label>
+						<div class="small-11 columns">
+						  <input type="text" name="long_orfs_o6" placeholder="Defaults: tag, tga, taa" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Specify allowable stop codons as a comma-separated list.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="small-2 columns">
+                  <label for="switch1" class="right inline"><span data-tooltip class="has-tip" title="Do NOT automatically calculate the minimum gene length that maximizes the number or length of output regions, but instead use either the value speciﬁed by the -g
+option or else the default, which is 90.">Fixed gene length</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch1">
+                  <input id="x0" name="long_orfs_s1" type="radio" checked="checked" value="0" /> 
+                  <label for="x0" onclick="">Off</label> 
+                  <input id="x1" name="long_orfs_s1" type="radio" value="1" /> 
+                  <label for="x1" onclick="">On</label><span></span></div>
+                </div>
+                <div class="small-2 columns">
+                  <label for="switch2" class="right inline"><span data-tooltip class="has-tip" title="Assume a linear rather than circular genome, i.e., there will be no “wraparound”
+genes with part at the beginning of the sequence and the rest at the end of the sequence.">Linear genome</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch2">
+                  <input id="x2" name="long_orfs_s2" type="radio" checked="checked" value="0" /> 
+                  <label for="x2" onclick="">Off</label> 
+                  <input id="x3" name="long_orfs_s2" type="radio" value="1" /> 
+                  <label for="x3" onclick="">On</label><span></span></div>
+                </div>
+                <div class="small-2 columns">
+                  <label for="switch3" class="right inline"><span data-tooltip class="has-tip" title="Find and use as the minimum gene length the value that maximizes the total length
+of non-overlapping genes, instead of the default behaviour, which is to maximize the
+total number of non-overlapping genes.">Length option</span></label>
+                </div>
+				<div class="small-2 columns">
+                  <div class="switch" id="switch3">
+                  <input id="x4" name="long_orfs_s3" type="radio" checked="checked" value="0" /> 
+                  <label for="x4" onclick="">Off</label> 
+                  <input id="x5" name="long_orfs_s3" type="radio" value="1" /> 
+                  <label for="x5" onclick="">On</label><span></span></div>
+                </div>
+				
+		</fieldset>
+	</div>
+  </div>
+  
+   <div class="row">
+	<div class="large-12 columns">
+		<fieldset>
+			<legend>build-icm Options</legend>
+			
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Depth</label>
+						<div class="small-11 columns">
+						  <input type="text" name="build_icm_o1" placeholder="Default: 7" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the depth of the ICM to <em>n</em>. The depth is the maximum number of positions
+in the context window that will be used to determine the probability of the predicted
+position.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Period</label>
+						<div class="small-11 columns">
+						  <input type="text" name="build_icm_o2" placeholder="Default: 3" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the period of the ICM to <em>n</em>. The period is the number of different submodels
+for different positions in the text in a cyclic pattern. E.g., if the period is 3, the ﬁrst
+submodel will determine positions 1,4,7...; the second submodel will determine
+positions 2,5,8...; and the third submodel will determine positions 3,6,9... For
+a non-periodic model, use a value of 1.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Width</label>
+						<div class="small-11 columns">
+						  <input type="text" name="build_icm_o3" placeholder="Default: 12" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the width of the ICM to <em>n</em>. The width includes the predicted position.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Translation table</label>
+						<div class="small-11 columns">
+						  <input type="text" name="build_icm_o4" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Use Genbank translation table number <em>n</em> to specify stop codons.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Allowable stop codons</label>
+						<div class="small-11 columns">
+						  <input type="text" name="build_icm_o5" placeholder="Defaults: tag, tga, taa" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Specify stop codons as a comma-separated list.">?</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="small-2 columns">
+					<label for="switch4" class="right inline"><span data-tooltip class="has-tip" title="Do not use any input strings with in-frame stop codons.">No stops</span></label>
+				</div>
+				<div class="small-2 columns">
+				  <div class="switch" id="switch4">
+				  <input id="x6" name="build_icm_s1" type="radio" checked="checked" value="0" /> 
+				  <label for="x6" onclick="">Off</label> 
+				  <input id="x7" name="build_icm_s1" type="radio" value="1" /> 
+				  <label for="x7" onclick="">On</label><span></span></div>
+				</div>
+				<div class="small-2 columns">
+					<label for="switch5" class="right inline"><span data-tooltip class="has-tip" title="Use the reverse of the input strings to build the ICM. Note that this is merely the reverse and NOT the reverse-complement. In other words, the model is built in the backwards direction.">Reverse</span></label>
+				</div>
+				<div class="small-2 columns">
+				  <div class="switch" id="switch5">
+				  <input id="x8" name="build_icm_s2" type="radio" value="0" /> 
+				  <label for="x8" onclick="">Off</label> 
+				  <input id="x9" name="build_icm_s2" type="radio" checked="checked" value="1" /> 
+				  <label for="x9" onclick="">On</label><span></span></div>
+				</div>
+			
+		</fieldset>
+	</div>
+  </div>
+  
+  <div class="row">
+	<div class="large-12 columns">
+		<fieldset>
+			<legend>glimmer3 Options</legend>
+			
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Allowable start codons</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o1" placeholder="Defaults: atg, gtg, ttg" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Specify allowable start codons as a comma-separated list.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>GC percentage</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o2" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Use <em>p</em> as the GC percentage of the independent model, i.e., the model of intergenic sequence. Note: <em>p</em> should be a percentage, e.g., 45.2">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Minimum gene length</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o3" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the minimum gene length to <em>n</em> nucleotides. This does not include the bases in the stop codon.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Maximum overlap length</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o4" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the maximum overlap length to <em>n</em>. Overlaps of this many or fewer bases are allowed between genes. The new dynamic programming algorithm should never output genes that overlap by more than this many bases.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Probabilities of start codons</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o5" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Specify the probability of different start codons (same number and order as in -A
+							option). If no -A option is given, then there should be 3 values: for atg, gtg and ttg,
+							in that order. Sample format: -P 0.6,0.35,0.05. If -A is speciﬁed without -P, then
+							each start codon is equally likely (which is very unusual).">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Ignore score length</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o6" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Consider any gene <em>n</em> or more bases long as a potential gene, regardless of its in-frame
+							score. Without this option, this value is calculated automatically to be the length
+							such that the expected number of orfs this long or longer in a random sequence of a
+							million bases is one.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Threshold score</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o7" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Set the threshold score for consideration as a gene to <em>n</em>. If the in-frame score ≥ <em>n</em>,
+							then the region is given a number and considered a potential gene. Note this is the
+							integer score in the column labelled “InFrm” in the .detail ﬁle, not the decimal
+							score in the column labelled “Raw”.">?</span>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Translation table</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o8" placeholder="Defaults are automatically calculated..." />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Use Genbank translation table number <em>n</em> to specify stop codons.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="large-4 columns">
+					<div class="row collapse">
+						<label>Allowable stop codons</label>
+						<div class="small-11 columns">
+						  <input type="text" name="glimmer3_o9" placeholder="Defaults: tag, tga, taa" />
+						</div>
+						<div class="small-1 columns">
+						  <span data-tooltip class="has-tip postfix" title="Specify stop codons as a comma-separated list.">?</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="small-2 columns">
+                  <label for="switch1" class="right inline"><span data-tooltip class="has-tip" title="Use the ﬁrst possible codon in an orf as the start codon for initial scoring purposes.
+					Otherwise, the highest-scoring codon will be used. This only affects the start positions in the .detail ﬁle. The ﬁnal start predictions in the .predict ﬁle are always
+					based on the scoring functions.">First codon</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch6">
+                  <input id="x10" name="glimmer3_s1" type="radio" checked="checked" value="0" /> 
+                  <label for="x10" onclick="">Off</label> 
+                  <input id="x11" name="glimmer3_s1" type="radio" value="1" /> 
+                  <label for="x11" onclick="">On</label><span></span></div>
+                </div>
+                <div class="small-2 columns">
+                  <label for="switch2" class="right inline"><span data-tooltip class="has-tip" title="Assume a linear rather than circular genome, i.e., there will be no genes that
+					“wraparound” between the beginning and end of the sequence.">Linear genome</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch7">
+                  <input id="x12" name="glimmer3_s2" type="radio" checked="checked" value="0" /> 
+                  <label for="x12" onclick="">Off</label> 
+                  <input id="x13" name="glimmer3_s2" type="radio" value="1" /> 
+                  <label for="x13" onclick="">On</label><span></span></div>
+                </div>
+                <div class="small-2 columns">
+                  <label for="switch3" class="right inline"><span data-tooltip class="has-tip" title="<em>sequence-ﬁle</em> is a multifasta ﬁle of separate genes to be scored separately, with no
+					overlap rules. Each sequence is assumed to be in 50
+					to 30 order and to include the
+					stop codon.">Separate genes</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch8">
+                  <input id="x14" name="glimmer3_s3" type="radio" checked="checked" value="0" /> 
+                  <label for="x14" onclick="">Off</label> 
+                  <input id="x15" name="glimmer3_s3" type="radio" value="1" /> 
+                  <label for="x15" onclick="">On</label><span></span></div>
+                </div>
+                <div class="small-2 small-offset-4 columns">
+                  <label for="switch3" class="right inline"><span data-tooltip class="has-tip" title="Don’t use the independent probability score column at all. Using this option will
+					produce more short gene predictions.">No independent probability</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch9">
+                  <input id="x16" name="glimmer3_s4" type="radio" checked="checked" value="0" /> 
+                  <label for="x16" onclick="">Off</label> 
+                  <input id="x17" name="glimmer3_s4" type="radio" value="1" /> 
+                  <label for="x17" onclick="">On</label><span></span></div>
+                </div>
+                <div class="small-2 columns">
+                  <label for="switch3" class="right inline"><span data-tooltip class="has-tip" title="Also score orfs that extend of the end of the sequence(s). This option presumes
+					that the sequence(s) is linear and not circular. Reported positions of the end of the
+					sequence are the nearest positions in the correct reading frame. Note that this ignores
+					any partial codons at the ends of a sequence. Suppose, for example, that a sequence
+					is 998 bp long and an orf in reading frame +1 starts at position 601 and extends of
+					the end of the sequence. Then the end of that gene/orf will be reported at position
+					999, as if the stop codon were in positions 997...999. This is true even if the last two
+					characters of the sequence are, say, cc and cannot possibly be part of a stop codon.
+					Any scores associated with orfs that extend past the end of a sequence are computed
+					using only complete codons contained in the sequence.">Extend</span></label>
+                </div>
+                <div class="small-2 columns">
+                  <div class="switch" id="switch10">
+                  <input id="x18" name="glimmer3_s5" type="radio" checked="checked" value="0" /> 
+                  <label for="x18" onclick="">Off</label> 
+                  <input id="x19" name="glimmer3_s5" type="radio" value="1" /> 
+                  <label for="x19" onclick="">On</label><span></span></div>
+                </div>
+              </div>
+			
+		</fieldset>
+		<input type="submit" name="Submit" onclick="formSubmit()" class="large button success expand" value="Submit" /> 
+		<input type="reset" name="Reset" class="small button alert expand" value="Reset" />
+	</div>
+  </div>
+  </form>
+  
+ 
+<div id="prof_note" class="reveal-modal">
+  <h4>Here are some FASTA files you can use for testing:</h4>
+  <p><a href="http://www.ncbi.nlm.nih.gov/nuccore/17154514?report=fasta">Rattus norvegicus strain Brown Norway clone RPCI-31-456P9</a></p>
+  <p><a href="http://www.ncbi.nlm.nih.gov/nuccore/211588786?report=fasta">Penicillium chrysogenum Wisconsin 54-1255 complete genome, contig Pc00c21</a></p>
+  <p><a href="http://www.ncbi.nlm.nih.gov/nuccore/479196022?report=fasta">Taylorella equigenitalis 14/56 draft genome</a></p>
+  <p><a href="http://www.ncbi.nlm.nih.gov/nuccore/17154514?report=fasta">Rattus norvegicus strain Brown Norway clone RPCI-31-456P9</a></p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+  
+<script>
+	document.write('<script src=' +
+	('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+	'.js><\/script>')
+</script> 
+<script src="js/foundation.min.js"></script> 
+<script src="js/foundation/foundation.topbar.js"></script>
+
+  <!--
+
+<script src="js/foundation/foundation.js"></script>
+
+<script src="js/foundation/foundation.dropdown.js"></script>
+
+<script src="js/foundation/foundation.placeholder.js"></script>
+
+<script src="js/foundation/foundation.forms.js"></script>
+
+<script src="js/foundation/foundation.alerts.js"></script>
+
+<script src="js/foundation/foundation.magellan.js"></script>
+
+<script src="js/foundation/foundation.reveal.js"></script>
+
+<script src="js/foundation/foundation.tooltips.js"></script>
+
+<script src="js/foundation/foundation.clearing.js"></script>
+
+<script src="js/foundation/foundation.cookie.js"></script>
+
+<script src="js/foundation/foundation.joyride.js"></script>
+
+<script src="js/foundation/foundation.orbit.js"></script>
+
+<script src="js/foundation/foundation.section.js"></script>
+
+-->
+   
+  <script>
+        $(document).foundation();
+</script></body>
+</html>

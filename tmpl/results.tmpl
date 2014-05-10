@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if IE 8]>                           <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+  <!--<![endif]-->
+  <head>
+    <meta name="generator"
+    content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Glimmer WebUI: Search</title>
+    <link rel="stylesheet" href="/bmouler/final/css/normalize.css" />
+    <link rel="stylesheet" href="/bmouler/final/css/foundation.css" />
+    <script src="js/vendor/custom.modernizr.js"></script>
+	<script>
+		function formSubmit()
+		{
+			document.getElementById("history").submit();
+		}
+	</script>
+  </head>
+  <body>
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="/bmouler/final/home.html">Glimmer WebUI</a>
+        </h1>
+      </li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon">
+        <a href="#">
+          <span>Menu</span>
+        </a>
+      </li>
+    </ul>
+    <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li class="inactive">
+          <a href="/bmouler/final/home.html">Home</a>
+        </li>
+        <li class="active">
+          <a href="/bmouler/final/glimmer3.html">Search</a>
+        </li>
+        <li class="inactive">
+          <a href="/bmouler/final/history.html">History</a>
+        </li>
+      </ul>
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="inactive">
+          <a href="http://www.cbcb.umd.edu/software/glimmer/glim302notes.pdf">Release Notes</a>
+        </li>
+        <li class="inactive">
+          <a href="/bmouler/final/references.html">References</a>
+        </li>
+        <li class="has-form">
+          <a class="button" href="http://advanced.jhu.edu/">JHU AAP</a>
+        </li>
+      </ul>
+    </section>
+  </nav>
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Glimmer Search Results</h2>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <form action="/bmouler/final/cgi-bin/save_history.cgi" id="history" method="post">
+        <fieldset>
+          <legend>QUERY</legend>
+          <div class="row">
+            <div class="large-12 columns">
+				<h6>The following commands were executed:</h6>
+				<p><TMPL_VAR NAME=CMD1></p>
+				<p><TMPL_VAR NAME=CMD2></p>
+				<p><TMPL_VAR NAME=CMD3></p>
+				<p><TMPL_VAR NAME=CMD4></p>
+				<p><TMPL_VAR NAME=CMD5></p>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset style="width:100%;word-wrap:break-word">
+          <legend>RESULTS</legend>
+          <div class="row">
+            <div class="large-12 columns">
+			<div style="word-wrap:break-word"><TMPL_VAR NAME=RESULTS></div>
+			<TMPL_LOOP NAME=TABLE>
+			  <p><b><TMPL_VAR NAME=ORF></b></p>
+				<div class="row">
+					<div class="large-4 columns">
+			 		 <p>Start: <TMPL_VAR NAME=START>
+					  <br>Stop: <TMPL_VAR NAME=FINISH>
+					  <br>Length: <TMPL_VAR NAME=LENGTH> nt
+					  <br>Weight: <TMPL_VAR NAME=WEIGHT> g/mol</p>
+				</div>
+
+				<div class="large-4 columns">
+				<p>A base count: <TMPL_VAR NAME=COUNTA>
+				<br>C base count: <TMPL_VAR NAME=COUNTC>
+<br>G base count: <TMPL_VAR NAME=COUNTG>
+<br>T base count: <TMPL_VAR NAME=COUNTT></p>
+</div>
+<div class="large-4 columns">
+<p>GC content: <TMPL_VAR NAME=GCCONTENT>%</p>
+</div>
+</div>
+			  <p class="panel" style="word-wrap:break-word"><TMPL_VAR NAME=SEQUENCE></p>
+			  <br>
+			  <br>
+			</TMPL_LOOP>
+<h5>NUMBER OF PREDICTED ORFs: <TMPL_VAR GENECOUNT></h5>
+            </div>
+          </div>
+        </fieldset>
+		<input name="filename" type="hidden" value="<TMPL_VAR NAME=FILENAME>">
+		<input name="search_id" type="hidden" value="<TMPL_VAR NAME=SEARCHID>">
+		<input type="button" name="save_to_database" onclick="formSubmit()" class="large button success expand" value="Save to Database" /> 
+		<a href="/bmouler/final/glimmer3.html"><input type="button" name="Search Again" class="large button expand" value="Search Again" /></a>
+      </form>
+    </div>
+  </div>
+  
+  
+  <script>
+	document.write('<script src=' +
+	('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+	'.js><\/script>')
+</script> 
+  <script src="js/foundation.min.js"></script> 
+  <!--
+
+<script src="js/foundation/foundation.js"></script>
+
+<script src="js/foundation/foundation.dropdown.js"></script>
+
+<script src="js/foundation/foundation.placeholder.js"></script>
+
+<script src="js/foundation/foundation.forms.js"></script>
+
+<script src="js/foundation/foundation.alerts.js"></script>
+
+<script src="js/foundation/foundation.magellan.js"></script>
+
+<script src="js/foundation/foundation.reveal.js"></script>
+
+<script src="js/foundation/foundation.tooltips.js"></script>
+
+<script src="js/foundation/foundation.clearing.js"></script>
+
+<script src="js/foundation/foundation.cookie.js"></script>
+
+<script src="js/foundation/foundation.joyride.js"></script>
+
+<script src="js/foundation/foundation.orbit.js"></script>
+
+<script src="js/foundation/foundation.section.js"></script>
+
+<script src="js/foundation/foundation.topbar.js"></script>
+
+-->
+   
+  <script>
+        $(document).foundation();
+</script></body>
+</html>
